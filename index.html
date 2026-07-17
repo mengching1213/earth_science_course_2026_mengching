@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>北市大暑期地球科學課程計畫</title>
+    <title>北市大地球科學課程計畫</title>
     <style>
         :root {
             /* Morandi Palette */
@@ -14,6 +14,8 @@
             --morandi-bg: #F8F7F4;        /* Soft Cream/Off-white */
             --text-color: #5D5D5D;        /* Soft Charcoal */
             --header-bg: #9FA8A3;        /* Muted Greenish-Grey */
+            --warning-color: #E8B4B8;    /* Soft Red for warnings */
+            --success-color: #B8D4B8;    /* Soft Green for success */
         }
         body { 
             font-family: 'Helvetica Neue', 'PingFang TC', sans-serif; 
@@ -30,7 +32,8 @@
             text-align: center; 
         }
         .hero h1 { font-size: 2.8rem; margin-bottom: 10px; font-weight: 300; letter-spacing: 1px; }
-        .container { max-width: 850px; margin: -30px auto 40px; padding: 0 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 20px; opacity: 0.95; }
+        .container { max-width: 900px; margin: -30px auto 40px; padding: 0 20px; }
         .card { 
             background: #FFFFFF; 
             padding: 40px; 
@@ -59,82 +62,459 @@
             font-size: 0.85rem; 
             margin-bottom: 8px; 
         }
+        .learning-point { 
+            background: var(--success-color); 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            margin: 8px 0; 
+            font-size: 0.95rem;
+        }
+        .learning-point::before { 
+            content: "📌 "; 
+            margin-right: 8px; 
+        }
+        .assignment { 
+            background: var(--warning-color); 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            margin: 8px 0; 
+            font-size: 0.95rem;
+        }
+        .assignment::before { 
+            content: "📝 "; 
+            margin-right: 8px; 
+        }
+        .key-takeaway { 
+            background: var(--morandi-blue); 
+            color: #FFF; 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            margin: 8px 0; 
+            font-size: 0.95rem;
+        }
+        .key-takeaway::before { 
+            content: "🎯 "; 
+            margin-right: 8px; 
+        }
+        .resources { 
+            background: #F0F0F0; 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            margin: 8px 0; 
+            font-size: 0.9rem;
+        }
+        .resources::before { 
+            content: "🔗 "; 
+            margin-right: 8px; 
+        }
+        .difficulty { 
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            font-weight: bold;
+        }
+        .difficulty.easy { background: #D4EDDA; color: #155724; }
+        .difficulty.medium { background: #FFF3CD; color: #856404; }
+        .difficulty.hard { background: #F8D7DA; color: #721C24; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #E9ECEF;
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--morandi-green);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .week-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         footer { 
             text-align: center; 
             color: #BDBDBD; 
             padding: 40px; 
             font-size: 0.85rem; 
         }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .container { padding: 0 15px; }
+            .card { padding: 25px; }
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
 
 <div class="hero">
-    <h1>北市大暑期地球科學課程</h1>
-    <p>地震學、地球物理與 AI／Agent 輔助教學實作</p>
+    <h1>北市大地球科學課程計畫</h1>
+    <p>地震學、地球物理與 AI/Agent 輔助教學實作</p>
+    <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.9;">
+        將複雜的地球科學知識轉化為中小學課堂中可立即應用的互動教材
+    </p>
 </div>
 
 <div class="container">
     <div class="card">
         <h2>課程核心精神</h2>
-        <p>本課程強調「教學相長」與「動手做」，目標是將專業的地震學與地球物理學知識，轉化為中小學課堂中可立即運用的互動教材。透過整合 AI Agent 與數位雲端工作流，引導教師打造具備前瞻性的教學環境。</p>
+        <p>本課程強調 <strong>理論實踐化</strong>、<strong>工具自動化</strong>、<strong>互動教學</strong> 三大核心，旨在培養學生將地球科學知識應用於實際教學情境的能力。</p>
+        
+        <div style="display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 200px;">
+                <h3>🎯 理論實踐化</h3>
+                <p style="font-size: 0.95rem;">將抽象的地震學理論轉化為具體的教學活動</p>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+                <h3>⚙️ 工具自動化</h3>
+                <p style="font-size: 0.95rem;">運用 AI 工具和自動化流程提升教學效率</p>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+                <h3>💡 互動教學</h3>
+                <p style="font-size: 0.95rem;">開發可互動的教學模組和網頁應用</p>
+            </div>
+        </div>
     </div>
 
     <div class="card">
-        <h2>六週詳細教學大綱</h2>
+        <h2>六週課程大綱</h2>
+        <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px;">
+            點擊每週的標籤查看詳細內容
+        </p>
         
         <!-- Week 1 -->
         <div class="week-section">
-            <span class="tag">Week 1: 7/17</span>
-            <h3>環境建立與工作流數位化</h3>
-            <p><strong>教學活動：</strong>建立 Google Drive 課程資料夾、GitHub 帳號、Hugging Face 與 Vercel 環境配置。安裝 Git、VS Code、Python 等開發基礎。</p>
-            <p><strong>產出目標：</strong>建立個人數位教學工作站，並測試自動化表單流程 (Google GAS)。</p>
+            <div class="week-header">
+                <div class="week-title">
+                    <span class="tag">Week 1</span>
+                    <span style="color: #888; font-size: 0.9rem;">7/17</span>
+                    <span class="difficulty easy">入門</span>
+                </div>
+                <div style="color: #888; font-size: 0.85rem;">
+                    <span class="tooltip">進度
+                        <span class="tooltiptext">第一週：環境建立</span>
+                    </span>
+                    <span style="margin-left: 10px;">✅ 基礎</span>
+                </div>
+            </div>
+            <h3>環境建立與工作流程自動化</h3>
+            
+            <div class="learning-point">
+                <strong>學習重點：</strong>熟悉雲端工具和開發環境，為後續課程打下堅實基礎
+            </div>
+            
+            <p><strong>教學活動：</strong>建立 Google Drive 課程資料夾、GitHub 倉庫、Hugging Face 帳號、Vercel 部署環境</p>
+            <p><strong>工具學習：</strong>Git、VS Code、Python 基礎操作</p>
+            
+            <div class="assignment">
+                <strong>作業：</strong>建立個人自動化教學工作站，並測試自動化表單流程 (Google GAS)
+            </div>
+            
+            <div class="key-takeaway">
+                <strong>核心收穫：</strong>掌握現代教學工具鏈，能夠獨立進行雲端協作和版本控制
+            </div>
+            
+            <div class="resources">
+                <strong>學習資源：</strong>
+                <a href="https://guides.github.com/" target="_blank" style="color: var(--morandi-blue);">GitHub 教程</a> | 
+                <a href="https://code.visualstudio.com/docs" target="_blank" style="color: var(--morandi-blue);">VS Code 文件</a>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
         </div>
 
         <!-- Week 2 -->
         <div class="week-section">
-            <span class="tag">Week 2: 7/24</span>
-            <h3>地震儀、震動與加速度量測</h3>
-            <p><strong>教學活動：</strong>探討地震儀原理。利用手機內建的三軸加速度計、Laptop 或 USB 感測器進行實作。</p>
-            <p><strong>產出目標：</strong>完成一份震動數據紀錄，並設計對應之學生學習單。</p>
+            <div class="week-header">
+                <div class="week-title">
+                    <span class="tag">Week 2</span>
+                    <span style="color: #888; font-size: 0.9rem;">7/24</span>
+                    <span class="difficulty easy">入門</span>
+                </div>
+                <div style="color: #888; font-size: 0.85rem;">
+                    <span class="tooltip">進度
+                        <span class="tooltiptext">第二週：地震基礎</span>
+                    </span>
+                    <span style="margin-left: 10px;">✅ 基礎</span>
+                </div>
+            </div>
+            <h3>地震成因、震動與加速度量測</h3>
+            
+            <div class="learning-point">
+                <strong>學習重點：</strong>理解地震的基本原理，學會使用感測器收集和分析震動數據
+            </div>
+            
+            <p><strong>理論學習：</strong>板塊運動理論、地震成因、震波傳播</p>
+            <p><strong>實作練習：</strong>使用手機內建的三軸加速度計或感測器進行震動數據收集</p>
+            
+            <div class="assignment">
+                <strong>作業：</strong>完成一套震動教學模組，包含數據收集、分析和視覺化
+            </div>
+            
+            <div class="key-takeaway">
+                <strong>核心收穫：</strong>理解地震的物理本質，掌握基本的震動數據分析技能
+            </div>
+            
+            <div class="resources">
+                <strong>學習資源：</strong>
+                <a href="https://phyphox.org/" target="_blank" style="color: var(--morandi-blue);">Phyphox 感測器 APP</a> | 
+                <a href="https://earthquake.usgs.gov/learn/" target="_blank" style="color: var(--morandi-blue);">USGS 地震基礎知識</a>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
         </div>
 
         <!-- Week 3 -->
         <div class="week-section">
-            <span class="tag">Week 3: 7/31</span>
+            <div class="week-header">
+                <div class="week-title">
+                    <span class="tag">Week 3</span>
+                    <span style="color: #888; font-size: 0.9rem;">7/31</span>
+                    <span class="difficulty medium">中等</span>
+                </div>
+                <div style="color: #888; font-size: 0.85rem;">
+                    <span class="tooltip">進度
+                        <span class="tooltiptext">第三週：震央定位</span>
+                    </span>
+                    <span style="margin-left: 10px;">⚡ 進階</span>
+                </div>
+            </div>
             <h3>震源機制與震央定位實作</h3>
-            <p><strong>教學活動：</strong>學習從三分量地震波圖中讀取 P/S 波到時差，運用旅行時間曲線推算震央距，執行三角定位。</p>
-            <p><strong>產出目標：</strong>繪製三測站定位圖，並設計配套之學生引導問題。</p>
+            
+            <div class="learning-point">
+                <strong>學習重點：</strong>掌握地震定位的核心技術，理解震源機制
+            </div>
+            
+            <p><strong>理論學習：</strong>P波和S波的特性、旅行時間曲線、三角定位原理</p>
+            <p><strong>實作練習：</strong>從三分量地震波波形中讀取 P/S 波到時，運用旅行時間曲線推算震央位置，進行三角定位</p>
+            
+            <div class="assignment">
+                <strong>作業：</strong>繪製三測站定位圖，並設計相關的教學引導問題
+            </div>
+            
+            <div class="key-takeaway">
+                <strong>核心收穫：</strong>能夠獨立完成地震定位，理解地震監測網絡的運作原理
+            </div>
+            
+            <div class="resources">
+                <strong>學習資源：</strong>
+                <a href="https://www.iris.edu/hq/jamaseis/" target="_blank" style="color: var(--morandi-blue);">jAmaSeis 地震波分析軟體</a> | 
+                <a href="https://www.iris.edu/hq/" target="_blank" style="color: var(--morandi-blue);">IRIS 地震教學資源</a>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
         </div>
 
         <!-- Week 4 -->
         <div class="week-section">
-            <span class="tag">Week 4: 8/7</span>
-            <h3>專業地震波形分析與導讀</h3>
-            <p><strong>教學活動：</strong>導讀《Introduction to Earthquake Seismology》第四章，使用 jAmaSeis 處理真實歷史地震波形資料。</p>
-            <p><strong>產出目標：</strong>撰寫一篇關於波形特徵的教學報告，區分基礎與進階教學重點。</p>
+            <div class="week-header">
+                <div class="week-title">
+                    <span class="tag">Week 4</span>
+                    <span style="color: #888; font-size: 0.9rem;">8/7</span>
+                    <span class="difficulty medium">中等</span>
+                </div>
+                <div style="color: #888; font-size: 0.85rem;">
+                    <span class="tooltip">進度
+                        <span class="tooltiptext">第四週：波形分析</span>
+                    </span>
+                    <span style="margin-left: 10px;">⚡ 進階</span>
+                </div>
+            </div>
+            <h3>專注地震波形分析與導引</h3>
+            
+            <div class="learning-point">
+                <strong>學習重點：</strong>深入分析地震波形特徵，理解不同地震類型的波形差異
+            </div>
+            
+            <p><strong>理論學習：</strong>閱讀 《Introduction to Earthquake Seismology》 第4章，學習波形分析理論</p>
+            <p><strong>實作練習：</strong>使用 jAmaSeis 處理真實歷史地震資料，分析波形特徵</p>
+            
+            <div class="assignment">
+                <strong>作業：</strong>製作一份關於波形特徵的教學報告，涵蓋至少3個不同類型的地震案例
+            </div>
+            
+            <div class="key-takeaway">
+                <strong>核心收穫：</strong>能夠從波形中提取有用信息，理解地震的複雜性
+            </div>
+            
+            <div class="resources">
+                <strong>學習資源：</strong>
+                <a href="https://www.iris.edu/hq/" target="_blank" style="color: var(--morandi-blue);">IRIS 地震波形數據庫</a>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
         </div>
 
         <!-- Week 5 -->
         <div class="week-section">
-            <span class="tag">Week 5: 8/14</span>
+            <div class="week-header">
+                <div class="week-title">
+                    <span class="tag">Week 5</span>
+                    <span style="color: #888; font-size: 0.9rem;">8/14</span>
+                    <span class="difficulty medium">中等</span>
+                </div>
+                <div style="color: #888; font-size: 0.85rem;">
+                    <span class="tooltip">進度
+                        <span class="tooltiptext">第五週：防災應用</span>
+                    </span>
+                    <span style="margin-left: 10px;">⚡ 進階</span>
+                </div>
+            </div>
             <h3>防災互動網頁與場址效應</h3>
-            <p><strong>教學活動：</strong>分析地震規模與震度差異，探討地盤放大（場址效應）對建物的影響，並架設互動網頁。</p>
-            <p><strong>產出目標：</strong>部署互動式防災教材網頁至 Vercel，提供學生互動練習。</p>
+            
+            <div class="learning-point">
+                <strong>學習重點：</strong>理解地震危害評估，學習場址效應的概念，開發互動教學網頁
+            </div>
+            
+            <p><strong>理論學習：</strong>地震危害模型、場址效應（地質放大效應）、防災教育</p>
+            <p><strong>實作練習：</strong>設計並開發互動防災教學網頁，整合前四週所學知識</p>
+            
+            <div class="assignment">
+                <strong>作業：</strong>部署互動防災教學網頁至 Vercel，包含場址效應示範和防災知識測驗
+            </div>
+            
+            <div class="key-takeaway">
+                <strong>核心收穫：</strong>能夠將專業知識轉化為易於理解的互動教學內容
+            </div>
+            
+            <div class="resources">
+                <strong>學習資源：</strong>
+                <a href="https://vercel.com/docs" target="_blank" style="color: var(--morandi-blue);">Vercel 部署教程</a> | 
+                <a href="https://earthquake.usgs.gov/hazards/" target="_blank" style="color: var(--morandi-blue);">USGS 地震危害資訊</a>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
         </div>
 
         <!-- Week 6 -->
         <div class="week-section">
-            <span class="tag">Week 6: 8/21</span>
-            <h3>成果整合與野外教案實踐</h3>
-            <p><strong>教學活動：</strong>進行野外震動觀測模擬，匯集前五週開發之教材，製作成果教案發表。</p>
-            <p><strong>產出目標：</strong>完成期末教學作品包（教案、學習單、網站、簡報）。</p>
+            <div class="week-header">
+                <div class="week-title">
+                    <span class="tag">Week 6</span>
+                    <span style="color: #888; font-size: 0.9rem;">8/21</span>
+                    <span class="difficulty hard">高級</span>
+                </div>
+                <div style="color: #888; font-size: 0.85rem;">
+                    <span class="tooltip">進度
+                        <span class="tooltiptext">第六週：成果整合</span>
+                    </span>
+                    <span style="margin-left: 10px;">🎯 專案</span>
+                </div>
+            </div>
+            <h3>成果整合與野外教學實測</h3>
+            
+            <div class="learning-point">
+                <strong>學習重點：</strong>整合所有知識和技能，完成完整的教學方案
+            </div>
+            
+            <p><strong>實作練習：</strong>進行野外地震測量模擬，彙整前五週開發之教材</p>
+            <p><strong>專案製作：</strong>製作完整的教學作品包，包含教案、教具、網站、簡報</p>
+            
+            <div class="assignment">
+                <strong>作業：</strong>完成期末教學作品包，並準備5-10分鐘的演示腳本
+            </div>
+            
+            <div class="key-takeaway">
+                <strong>核心收穫：</strong>具備獨立開發地球科學教學方案的能力，能夠將理論、工具、教學方法完美結合
+            </div>
+            
+            <div class="resources">
+                <strong>學習資源：</strong>所有前五週的教材和工具
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📚 學習建議</h2>
+        <p>想要學好這門課？查看我們的 <a href="LEARNING_GUIDE.md" target="_blank" style="color: var(--morandi-blue); font-weight: bold;">完整學習指南</a>！</p>
+        
+        <div style="margin-top: 20px;">
+            <h3>🎯 學習重點總結</h3>
+            <ul style="line-height: 1.8;">
+                <li><strong>Week 1-2：</strong>打好工具和理論基礎</li>
+                <li><strong>Week 3-4：</strong>掌握地震分析核心技能</li>
+                <li><strong>Week 5-6：</strong>應用和整合，產出教學成果</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <h3>⭐ 成功要訣</h3>
+            <ul style="line-height: 1.8;">
+                <li>✅ <strong>動手實作：</strong>每週都要完成作業</li>
+                <li>✅ <strong>及時求助：</strong>遇到問題不要拖延</li>
+                <li>✅ <strong>團隊合作：</strong>找同伴一起學習</li>
+                <li>✅ <strong>保持好奇：</strong>多問為什麼</li>
+            </ul>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 北市大地球科學課程計畫 | 教學相長，啟發創造力</p>
+    <p>&copy; 2026 北市大地球科學課程計畫 | 教學創新，從實作開始</p>
+    <p style="margin-top: 10px; font-size: 0.8rem;">
+        <a href="README.md" style="color: #888; margin: 0 10px; text-decoration: none;">專案說明</a> | 
+        <a href="LEARNING_GUIDE.md" style="color: #888; margin: 0 10px; text-decoration: none;">學習指南</a> | 
+        <a href="https://github.com/mengching1213/earth_science_course_2026_mengching" style="color: #888; margin: 0 10px; text-decoration: none;">GitHub 倉庫</a>
+    </p>
 </footer>
 
 </body>
