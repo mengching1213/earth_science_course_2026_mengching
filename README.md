@@ -9,6 +9,12 @@
 
 本專案是 **2026 年北市大地球科學課程計畫** 的官方倉庫，旨在將 **地震學** 與 **地球物理** 知識轉化為 **中小學課堂中可立即應用的互動教材**，並結合 **AI/Agent 輔助教學** 的創新模式。
 
+## 作業1繳交
+
+請於期限內完成作業並使用下列 Google 表單繳交：
+
+https://docs.google.com/forms/d/e/1FAIpQLSe1dKAno6gKp4k7W_FK5qzNAanuZHmckLKT3mShmHAMzL_tBQ/viewform
+
 ### 🎯 核心目標
 
 - ✅ **理論實踐化**：將複雜的地球科學理論轉化為易於理解的教學內容
